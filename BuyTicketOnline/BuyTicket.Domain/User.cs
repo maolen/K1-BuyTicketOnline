@@ -11,7 +11,6 @@ namespace BuyTicket.Domain
         public string Iin { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public string Balance { get; set; }
-        public Guid ticketId { get; set; }
+        public Guid TicketId { get; set; }
     }
 }

@@ -1,14 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using BuyTicket.DataAccess;
-using BuyTicket.Domain;
-using BuyTicket.Services;
-using BuyTicket.Services.Abstract;
+﻿using static BuyTicket.Services.Actions;
 using System;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Text;
+using static System.Console;
 
 namespace BuyTicket.UI
 {
@@ -16,31 +8,56 @@ namespace BuyTicket.UI
     {
         static void Main(string[] args)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true);
+            StartConnection();
 
-            IConfigurationRoot configurationRoot = builder.Build();
+            //var user = new User
+            //{
+            //    Email = "zhakupova.kamila@mail.ru"
+            //};
+            //ICodeSender messageSender = new EmailSender();
+            //messageSender.SendCode(user);
 
-            string providerName = configurationRoot.GetSection("AppConfig")
-                                 .GetChildren()
-                                 .Single()
-                                 .Value;
+            //using (var context = new Repository(providerName, connectionString))
+            //{
+            //    context.Users.Add(user);
+            //}
 
-            string connectionString = configurationRoot.GetConnectionString("DebugConnectionString");
-
-            DbProviderFactories.RegisterFactory(providerName, SqlClientFactory.Instance);
-
-            var user = new User
+            var isExit = false;
+            WriteLine("Покупка билетов онлайн");
+            WriteLine("1 - Зарегистрироваться");
+            WriteLine("2 - Показать рейсы");
+            WriteLine("3 - Купить билет");
+            WriteLine("0 - Купить билет");
+            while (!isExit)
             {
-                Email = "zhakupova.kamila@mail.ru"
-            };
-            ICodeSender messageSender = new EmailSender();
-            messageSender.SendCode(user);
+                WriteLine("Выбрать:");
+                var userSelect = Convert.ToInt32(ReadLine());
+                switch (userSelect)
+                {
+                    case (int) MenuItems.EXIT:
+                        {
+                            isExit = true;
+                            break;
+                        }
+                    case (int)MenuItems.REGISTER:
+                        {
 
-            using var context = new Repository(providerName, connectionString);
-            context.Users.Add(user);
+                            break;
+                        }
+                    case (int)MenuItems.SHOW_FLIGHT:
+                        {
 
+                            break;
+                        }
+                    case (int)MenuItems.BUY_TICKET:
+                        {
+
+                            break;
+                        }
+                }
+
+            }
         }
+        
     }
 }
